@@ -4,10 +4,13 @@ function sendKey(key) { mainWindow.webContents.send('media', key); }
 const path = require('path').win32;
 
 function createWindow () {
-    mainWindow = new BrowserWindow({ width: 800, height: 600 });
+    mainWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: { nodeIntegration: true, preload: path.join(__dirname, 'renderer.js') },
+    });
     mainWindow.loadURL('https://music.youtube.com/');
-    const ren = path.resolve(`${__dirname}`, 'renderer.js');
-    mainWindow.webContents.executeJavaScript(`require("${ren.replace(/\\/g, '\\\\')}")`);
+
     // mainWindow.webContents.openDevTools();
     // mainWindow.webContents.on('will-navigate', (evt, url) => {
     //     if (!url.startsWith('https://music.youtube.com/')) {
