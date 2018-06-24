@@ -1,7 +1,7 @@
 const { app, BrowserWindow, globalShortcut, shell } = require('electron');
 let mainWindow;
 function sendKey(key) { mainWindow.webContents.send('media', key); }
-const path = require('path').win32;
+const path = require('path');
 
 function createWindow () {
     mainWindow = new BrowserWindow({
