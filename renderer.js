@@ -49,13 +49,19 @@ API.addEventListener('onReady', () => console.log('onReady'));
 
 function updateDiscord() {
     const data = API.getVideoData();
+    const curTime = API.getCurrentTime();
+    const lengh = API.getDuration();
+    const now = Date.now() / 1000;
 
     rpc.setActivity({
         largeImageKey: 'large_logo',
         smallImageKey: 'small_logo',
-        smallImageText: 'owo',
+        // smallImageText: '',
         details: `${data.author} - ${data.title}`,
         state: `https://www.youtube.com/watch?v=${data.video_id}`,
+        type: 'WATCHING',
+        startTimestamp: Math.round(now - curTime),
+        // endTimestamp: Math.round(now + lengh),
     });
     console.log(`discord presence updated`);
 }
