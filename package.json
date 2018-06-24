@@ -1,7 +1,7 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "youtube-music-desktop",
+  "version": "0.1.0",
+  "description": "unofficial YouTube Music desktop client",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -10,16 +10,10 @@
     "build:linux": "node build.js linux",
     "build": "node build.js all"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "repository": "https://github.com/RosieCode95/YouTube-Music-Desktop",
+  "keywords": [ "YouTube", "music", "client", "desktop"],
+  "author": "RosieCode95",
+  "license": "CC BY-NC 3.0",
   "devDependencies": {
     "electron": "^2.0.0"
   },
