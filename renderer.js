@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             largeImageKey: 'large_logo',
             // smallImageKey: 'small_logo',
             details: `${data.author} - ${data.title}`,
-            state: `https://www.youtube.com/watch?v=${data.video_id}`,
+            state: `youtu.be/${data.video_id}`,
             type: 'WATCHING',
             startTimestamp: Math.round(now - curTime),
         };
