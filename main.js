@@ -9,7 +9,6 @@ function createWindow () {
     const ren = path.resolve(`${__dirname}`, 'renderer.js');
     mainWindow.webContents.executeJavaScript(`require("${ren.replace(/\\/g, '\\\\')}")`);
     mainWindow.webContents.openDevTools();
-    
     // mainWindow.webContents.on('will-navigate', (evt, url) => {
     //     if (!url.startsWith('https://music.youtube.com/')) {
     //         evt.preventDefault();
