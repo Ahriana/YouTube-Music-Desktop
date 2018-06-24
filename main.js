@@ -26,14 +26,6 @@ function createWindow () {
         globalShortcut.register('MediaPreviousTrack', () => sendKey('previousTrack'));
         globalShortcut.register('MediaPlayPause', () => sendKey('playPause'));
         globalShortcut.register('MediaNextTrack', () => sendKey('nextTrack'));
-
-        // other keys
-        globalShortcut.register('CmdOrCtrl+i', () => mainWindow.webContents.openDevTools());
-        globalShortcut.register('CmdOrCtrl+F', () => {
-            const state = !mainWindow.isFullScreen();
-            mainWindow.setFullScreen(state);
-        });
-        
     }, 3000);
 }
 
