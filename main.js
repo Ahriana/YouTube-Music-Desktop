@@ -1,4 +1,4 @@
-const { app, BrowserWindow, globalShortcut } = require('electron');
+const { app, BrowserWindow, globalShortcut, shell } = require('electron');
 let mainWindow;
 const path = require('path').win32;
 
@@ -10,6 +10,13 @@ function createWindow () {
 
     mainWindow.webContents.executeJavaScript(`require("${ren.replace(/\\/g, '\\\\')}")`);
     mainWindow.webContents.openDevTools();
+
+    mainWindow.webContents.on('will-navigate', (evt, url) => {
+        if (!url.startsWith('https://music.youtube.com/')) {
+            evt.preventDefault();
+            shell.openExternal(url);
+        }
+    });
 
     mainWindow.on('closed', () => { mainWindow = null; });
     setTimeout(() => {
