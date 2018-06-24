@@ -5,8 +5,7 @@ const path = require('path');
 
 function createWindow () {
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 800, height: 600,
         webPreferences: { nodeIntegration: true, preload: path.join(__dirname, 'renderer.js') },
     });
     mainWindow.loadURL('https://music.youtube.com/');

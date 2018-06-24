@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ClientId = '460456226090778634';
     let discord = false;
     const rpc = new DiscordRPC.Client({ transport: 'ipc' });
+    let last = ['owo', {}];
 
     ipcRenderer.on('media', (event, store) => {
         console.log('key:', store);
@@ -21,52 +22,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const API = document.getElementsByClassName('ytmusic-app')[3].playerApi_;
 
     API.addEventListener('onStateChange', (a) => {
-        console.log('onStateChange', a);
-        switch (event.data) {
-            case 0:
-                console.log('video ended');
-                break;
-            case 1:
-                console.log(`video playing`);
-                break;
-            case 2:
-                console.log(`video paused`);
-        }
-    });
-
-    API.addEventListener('onVideoDataChange', (a) => {
-        console.log('onVideoDataChange', a);
-        if (a.type === 'dataupdated') {
-            console.log('update discord now?');
-            if (discord) { return updateDiscord(); }
-            // API.getVideoData()
-        }
-    });
-    API.addEventListener('onReady', () => console.log('onReady'));
-
-    // API.addEventListener('onPlaylistNext', () => { console.log(e.queue); });
-    // API_.addEventListener('onPlaylistPrevious', () => console.log(e));
-    // this.store.subscribeBySelector("player.volume",function(a){e.onVolumeChange(a)});
-
-    function updateDiscord() {
         const data = API.getVideoData();
         const curTime = API.getCurrentTime();
-        const lengh = API.getDuration();
+        // const lengh = API.getDuration();
         const now = Date.now() / 1000;
 
-        rpc.setActivity({
+        if (!data.author || !data.title || !data.video_id) { return console.log('invalid state'); }
+        const act = {
             largeImageKey: 'large_logo',
-            smallImageKey: 'small_logo',
-            // smallImageText: '',
+            // smallImageKey: 'small_logo',
             details: `${data.author} - ${data.title}`,
             state: `https://www.youtube.com/watch?v=${data.video_id}`,
             type: 'WATCHING',
             startTimestamp: Math.round(now - curTime),
-            // endTimestamp: Math.round(now + lengh),
-        });
+        };
+        last[1] = act;
+    });
+
+    API.addEventListener('onReady', () => console.log('onReady'));
+
+    function updateDiscord() {
+        if (!last[1].state) { return console.log('no data!'); }
+        if (last[0] === last[1].state) { return console.log('dont update'); }
+        last[0] = last[1].state;
+        rpc.setActivity(last[1]);
         console.log(`discord presence updated`);
     }
 
-    rpc.on('ready', () => { console.log('discord detected!'); discord = true; });
+    rpc.on('ready', () => {
+        console.log('discord detected!');
+        if (discord) { return; }
+        discord = true;
+
+        setInterval(() => {
+            updateDiscord();
+        }, 15000);
+    });
     rpc.login(ClientId).catch(console.error);
 }, false);
