@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const ipcRenderer = require('electron').ipcRenderer;
     const DiscordRPC = require('discord-rpc');
-    const ClientId = '460456226090778634';
+    const clientId = '460456226090778634';
     let discord = false;
     const rpc = new DiscordRPC.Client({ transport: 'ipc' });
     let last = ['owo', {}];
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const API = document.getElementsByClassName('ytmusic-app')[3].playerApi_;
+    const API = document.getElementsByClassName('ytmusic-app')[2].playerApi_;
 
     API.addEventListener('onStateChange', (a) => {
         const data = API.getVideoData();
@@ -27,12 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // const lengh = API.getDuration();
         const now = Date.now() / 1000;
 
-        if (!data.author || !data.title || !data.video_id) { return console.log('invalid state'); }
+        // if (!data.author || !data.title || !data.video_id) { return console.log('invalid state', data); }
         const act = {
             largeImageKey: 'large_logo',
             // smallImageKey: 'small_logo',
-            details: `${data.author} - ${data.title}`,
-            state: `youtu.be/${data.video_id}`,
+            details: `${data.author ? data.author : 'NA'} - ${data.title ? data.title : 'NA'}`,
+            state: data.video_id ? `youtu.be/${data.video_id}` : null,
             type: 'WATCHING',
             startTimestamp: Math.round(now - curTime),
         };
@@ -58,5 +58,5 @@ document.addEventListener('DOMContentLoaded', () => {
             updateDiscord();
         }, 15000);
     });
-    rpc.login(ClientId).catch(console.error);
+    rpc.login({ clientId });
 }, false);
