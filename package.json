@@ -1,7 +1,7 @@
 {
-  "name": "youtube-music-desktop",
+  "name": "ytmusic-client",
   "version": "0.1.0",
-  "description": "unofficial YouTube Music desktop client",
+  "description": "YT Music client",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -10,22 +10,22 @@
     "build:linux": "node build.js linux",
     "build": "node build.js all"
   },
-  "repository": "https://github.com/RosieCode95/YouTube-Music-Desktop",
+  "repository": "",
   "keywords": [
-    "YouTube",
-    "music",
-    "client",
-    "desktop"
+    "YouTube Music",
+    "Client",
+    "Desktop"
   ],
-  "author": "RosieCode95",
+  "author": "crash_",
   "license": "CC BY-NC 3.0",
   "devDependencies": {
-    "electron": "^2.0.0"
+    "electron": "^2.0.10"
   },
   "dependencies": {
     "discord-rpc": "github:devsnek/discord-rpc",
-    "electron-packager": "^12.1.0",
+    "electron-packager": "^12.1.2",
     "electron-shortcut": "^0.5.0",
+    "electron-window-state": "^5.0.1",
     "start": "^5.1.0"
   }
 }

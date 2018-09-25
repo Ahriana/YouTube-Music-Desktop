@@ -9,8 +9,8 @@ const matrix = {
 const sel = matrix[process.argv[2]];
 
 const opt = {
-    name: 'YouTube-Music-Desktop',
-    appCopyright: 'RosieCode95',
+    name: 'ytmusic-client',
+    appCopyright: 'crash_',
     dir: '.',
     asar: true,
     overwrite: true,
