@@ -19,18 +19,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const API = document.getElementsByClassName('ytmusic-app')[2].playerApi_;
+    let API = {};
+    const ytmusic_api = document.getElementsByClassName('ytmusic-app');
+
+    Object.keys(ytmusic_api).forEach(element => {
+        if (ytmusic_api[element].playerApi_) { API = ytmusic_api[element].playerApi_; }
+    });
 
     API.addEventListener('onStateChange', (a) => {
         const data = API.getVideoData();
         const curTime = API.getCurrentTime();
-        // const lengh = API.getDuration();
         const now = Date.now() / 1000;
 
-        // if (!data.author || !data.title || !data.video_id) { return console.log('invalid state', data); }
         const act = {
             largeImageKey: 'large_logo',
-            // smallImageKey: 'small_logo',
             details: `${data.author ? data.author : 'NA'} - ${data.title ? data.title : 'NA'}`,
             state: data.video_id ? `youtu.be/${data.video_id}` : null,
             type: 'WATCHING',
@@ -53,10 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('discord detected!');
         if (discord) { return; }
         discord = true;
-
-        setInterval(() => {
-            updateDiscord();
-        }, 15000);
+        setInterval(() => { updateDiscord(); }, 15000);
     });
     rpc.login({ clientId });
 }, false);
