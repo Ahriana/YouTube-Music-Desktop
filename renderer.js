@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const clientId = '460456226090778634';
     let discord = false;
     const rpc = new DiscordRPC.Client({ transport: 'ipc' });
-    let last = ['owo', {}];
+    let last = ['', {}];
+    ipcRenderer.send('load-tray');
 
     ipcRenderer.on('media', (event, store) => {
-        console.log('key:', store);
         if (store === 'nextTrack') {
             document.getElementsByClassName('next-button')[0].click();
         } else if (store === 'previousTrack') {
@@ -21,12 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let API = {};
     const ytmusic_api = document.getElementsByClassName('ytmusic-app');
-
     Object.keys(ytmusic_api).forEach(element => {
         if (ytmusic_api[element].playerApi_) { API = ytmusic_api[element].playerApi_; }
     });
 
-    API.addEventListener('onStateChange', (a) => {
+    API.addEventListener('onStateChange', () => {
         const data = API.getVideoData();
         const curTime = API.getCurrentTime();
         const now = Date.now() / 1000;
@@ -44,15 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
     API.addEventListener('onReady', () => console.log('onReady'));
 
     function updateDiscord() {
-        if (!last[1].state) { return console.log('no data!'); }
-        if (last[0] === last[1].state) { return console.log('dont update'); }
+        if (!last[1].state) { return; }
+        if (last[0] === last[1].state) { return; }
         last[0] = last[1].state;
         rpc.setActivity(last[1]);
-        console.log(`discord presence updated`);
     }
 
     rpc.on('ready', () => {
-        console.log('discord detected!');
+        console.log('Discord client detected!');
         if (discord) { return; }
         discord = true;
         setInterval(() => { updateDiscord(); }, 15000);
