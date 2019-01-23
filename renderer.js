@@ -5,21 +5,26 @@ document.addEventListener('DOMContentLoaded', () => {
     let discord = false;
     const rpc = new DiscordRPC.Client({ transport: 'ipc' });
     let last = ['', {}];
+    let API = {};
     ipcRenderer.send('load-tray');
 
     ipcRenderer.on('media', (event, store) => {
         if (store === 'nextTrack') {
-            document.getElementsByClassName('next-button')[0].click();
+            return API.nextVideo();
         } else if (store === 'previousTrack') {
-            document.getElementsByClassName('previous-button')[0].click();
+            return API.previousVideo();
         } else if (store === 'playPause') {
-            document.getElementsByClassName('play-pause-button')[0].click();
+            const state = API.getPlayerState();
+            if (state === 1) {
+                return API.pauseVideo();
+            } else if (state === 2) { return API.playVideo(); } else {
+                return console.log('unhandled player state', state);
+            }
         } else {
             console.log('unhandled key');
         }
     });
 
-    let API = {};
     const ytmusic_api = document.getElementsByClassName('ytmusic-app');
     Object.keys(ytmusic_api).forEach(element => {
         if (ytmusic_api[element].playerApi_) { API = ytmusic_api[element].playerApi_; }
