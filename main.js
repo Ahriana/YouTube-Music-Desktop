@@ -4,9 +4,9 @@ function sendKey(key) { mainWindow.webContents.send('media', key); }
 const path = require('path');
 
 function createWindow () {
-    tray = new Tray('assets/ytmusic.png');
+    tray = new Tray(path.join(__dirname, 'assets', 'ytmusic.png'));
     mainWindow = new BrowserWindow({
-        icon: 'assets/ytmusic.png', frame: true,
+        icon: path.join(__dirname, 'assets', 'ytmusic.png'), frame: true,
         width: 800, height: 600,
         webPreferences: { nodeIntegration: true, preload: path.join(__dirname, 'renderer.js') },
         show: false,
