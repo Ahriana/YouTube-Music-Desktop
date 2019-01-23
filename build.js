@@ -17,8 +17,6 @@ const opt = {
     prune: true,
     out: './builds',
     icon: './assets/ytmusic_icon.ico',
-    extraResource: ['./assets/ytmusic.png'],
-    extraFiles: ['./assets/ytmusic.png'],
 };
 
 if (sel) {
