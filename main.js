@@ -26,7 +26,7 @@ function createWindow () {
     mainWindow.on('closed', () => { mainWindow = null; });
 }
 
-ipcMain.on('load-tray', () => {
+ipcMain.on('load-content', () => {
     globalShortcut.register('MediaPreviousTrack', () => sendKey('previousTrack'));
     globalShortcut.register('MediaPlayPause', () => sendKey('playPause'));
     globalShortcut.register('MediaNextTrack', () => sendKey('nextTrack'));
@@ -42,6 +42,9 @@ ipcMain.on('load-tray', () => {
     {
         label: 'Previous Track',
         click: () => { sendKey('previousTrack'); },
+    },
+    {
+        type: 'separator',
     },
     {
         label: 'Quit',

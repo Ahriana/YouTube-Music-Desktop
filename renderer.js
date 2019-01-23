@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rpc = new DiscordRPC.Client({ transport: 'ipc' });
     let last = ['', {}];
     let API = {};
-    ipcRenderer.send('load-tray');
+    ipcRenderer.send('load-content');
 
     ipcRenderer.on('media', (event, store) => {
         if (store === 'nextTrack') {
