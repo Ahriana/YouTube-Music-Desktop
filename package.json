@@ -2,13 +2,15 @@
   "name": "youtube-music-desktop",
   "version": "0.1.0",
   "description": "unofficial YouTube Music desktop client",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron-forge start",
     "build:mac": "node build.js mac",
     "build:win": "node build.js win",
     "build:linux": "node build.js linux",
-    "build": "node build.js all"
+    "build": "node build.js all",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "repository": "https://github.com/RosieCode95/YouTube-Music-Desktop",
   "keywords": [
@@ -20,12 +22,47 @@
   "author": "RosieCode95",
   "license": "CC BY-NC 3.0",
   "devDependencies": {
-    "electron": "^4.0.1"
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "4.0.0"
   },
   "dependencies": {
     "discord-rpc": "github:devsnek/discord-rpc",
-    "electron-packager": "^13.0.1",
-    "electron-shortcut": "^0.5.0",
-    "start": "^5.1.0"
+    "electron-compile": "^6.4.4",
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "npm"
+      },
+      "electronWinstallerConfig": {
+        "name": "youtube_music_desktop"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "youtubemusicdesktop"
+      }
+    }
   }
 }
