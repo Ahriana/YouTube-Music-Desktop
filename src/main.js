@@ -33,6 +33,11 @@ ipcMain.on('load-content', () => {
     globalShortcut.register('MediaNextTrack', () => sendKey('nextTrack'));
 
     const contextMenu = Menu.buildFromTemplate([{
+        label: 'Visability',
+        click: () => { !mainWindow.isVisible() || mainWindow.isMinimized() ? mainWindow.show() : mainWindow.hide() },
+    },
+    { type: 'separator' },
+    {
         label: 'Play/Pause',
         click: () => { sendKey('playPause'); },
     },
@@ -44,9 +49,7 @@ ipcMain.on('load-content', () => {
         label: 'Previous Track',
         click: () => { sendKey('previousTrack'); },
     },
-    {
-        type: 'separator',
-    },
+    { type: 'separator' },
     {
         label: 'Quit',
         click: () => { app.isQuitting = true; app.quit(); },
